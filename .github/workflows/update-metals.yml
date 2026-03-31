@@ -1,0 +1,38 @@
+name: Update Metals Prices
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 12 * * *"
+    - cron: "30 16 * * *"
+    - cron: "30 20 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-metals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Update prices
+        env:
+          METALS_DEV_API_KEY: ${{ secrets.METALS_DEV_API_KEY }}
+        run: node scripts/update-metals.mjs
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/metals.json
+          git diff --cached --quiet || git commit -m "Update metals prices"
+
+      - name: Push changes
+        run: git push

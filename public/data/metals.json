@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "updatedAt": "",
+  "prices": [
+    { "label": "Gold", "price": null, "changePct": null },
+    { "label": "Silver", "price": null, "changePct": null },
+    { "label": "Platinum", "price": null, "changePct": null },
+    { "label": "Copper", "price": null, "changePct": null }
+  ]
+}

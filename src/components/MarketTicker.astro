@@ -10,7 +10,7 @@ const fallbackPrices = [
 <div
   class="market-ticker"
   data-market-ticker
-  data-api-url="/api/metals.json"
+  data-api-url="/data/metals.json"
 >
   <div class="market-track">
     {fallbackPrices.map((item) => (
@@ -44,7 +44,7 @@ const fallbackPrices = [
       fetch(apiUrl)
         .then(async (response) => {
           const data = await response.json();
-          if (!response.ok || !data?.ok || !Array.isArray(data?.prices)) {
+          if (!response.ok || !Array.isArray(data?.prices)) {
             throw new Error(data?.message || "Ticker request failed");
           }
           return data.prices;
