@@ -17,34 +17,18 @@ import { business, ownerBio, serviceHighlights } from "../data/site";
     </p>
   </section>
 
-  <section class="section">
-    <div class="container two-column">
-      <div class="prose-card">
-        <h2>What the original site says, presented more clearly.</h2>
-        <p>
-          The current site communicates several strong business points: free estimates,
-          seven-day availability, house calls for larger collections, and a focus on high
-          payouts with personalized service. Those ideas are preserved here and given more
-          room to read like a reputable local business instead of marketing filler.
-        </p>
-      </div>
-      <div class="stack">
-        {serviceHighlights.map((item) => (
-          <div class="bullet-card">
-            <p>{item}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <section class="section alt-section">
     <div class="container two-column">
-      <div>
+      <div class="owner-intro">
         <p class="eyebrow">About the owner</p>
         <h2>Shane O'Connor, MBA</h2>
+        <img
+          class="owner-intro-image"
+          src="/site-assets/original/afr9bkwq684zg4n5.jpg"
+          alt="Owner portrait"
+        />
       </div>
-      <div class="stack prose-card">
+      <div class="stack prose-card owner-bio-copy">
         {ownerBio.map((paragraph) => (
           <p>{paragraph}</p>
         ))}
@@ -59,7 +43,7 @@ import { business, ownerBio, serviceHighlights } from "../data/site";
         <h2>Questions about a collection or estate?</h2>
         <p>Call to describe what you have, schedule a visit, or ask about a house call.</p>
       </div>
-      <div class="contact-panel muted">
+      <div class="contact-panel muted contact-panel-rounded">
         <h3>{business.phoneDisplay}</h3>
         <p><a href={business.phoneHref}>Call now</a></p>
         <p><a href={business.emailHref}>{business.email}</a></p>

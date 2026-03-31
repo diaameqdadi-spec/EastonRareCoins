@@ -11,22 +11,23 @@ import { business } from "../data/site";
     <p class="eyebrow">Contact</p>
     <h1>Reach the shop by phone, email, or an appointment request.</h1>
     <p class="lede">
-      The original site offered phone, email, and web contact. This version keeps that
-      information but turns it into a cleaner, more practical contact page.
+      Questions about a collection or estate? Call, email, or send an appointment request.
     </p>
   </section>
 
   <section class="section">
     <div class="container split-highlight">
-      <div class="contact-panel">
+      <div class="contact-panel contact-panel-centered">
         <p class="eyebrow">Direct contact</p>
         <h2>{business.phoneDisplay}</h2>
-        <p>{business.hours}</p>
-        <p><a href={business.phoneHref}>Call or text</a></p>
-        <p><a href={business.emailHref}>{business.email}</a></p>
+        <p class="contact-panel-subtitle">{business.hours}</p>
+        <div class="contact-panel-actions">
+          <a class="button" href={business.phoneHref}>Call or Text</a>
+          <a class="button button-ghost" href={business.emailHref}>{business.email}</a>
+        </div>
         <p>{business.addressFull}</p>
       </div>
-      <div class="contact-panel muted">
+      <div class="contact-panel muted contact-panel-rounded">
         <p class="eyebrow">Visit the office</p>
         <h3>{business.addressLine1}</h3>
         <p>{business.addressLine2}</p>
@@ -46,7 +47,7 @@ import { business } from "../data/site";
 
   <section class="section alt-section">
     <div class="container two-column">
-      <div>
+      <div class="appointment-copy">
         <p class="eyebrow">Appointment request</p>
         <h2>A simple form placeholder for the new build.</h2>
         <p>
@@ -54,6 +55,16 @@ import { business } from "../data/site";
           fallback so the layout is preserved without inventing a backend that was not in
           the workspace.
         </p>
+        <div class="appointment-media">
+          <img
+            src="/site-assets/original/storefront.jpeg"
+            alt="Easton Rare Coin storefront"
+          />
+          <img
+            src="/site-assets/original/office-portrait-large.jpg"
+            alt="Inside the Easton office"
+          />
+        </div>
       </div>
       <form
         class="contact-form"

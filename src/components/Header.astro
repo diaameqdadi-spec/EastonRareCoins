@@ -37,6 +37,10 @@ const links = [
         </div>
       </details>
     </nav>
+    <a class="button button-call" href={business.phoneHref}>
+      <span>Call For Cash Offer</span>
+      <strong>{business.phoneDisplay}</strong>
+    </a>
     <div class="header-socials">
       <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
         <img src="/site-assets/original/facebook.png" alt="" />
@@ -45,9 +49,5 @@ const links = [
         <img src="/site-assets/original/instagram.png" alt="" />
       </a>
     </div>
-    <a class="button button-call" href={business.phoneHref}>
-      <span>Call For Cash Offer</span>
-      <strong>{business.phoneDisplay}</strong>
-    </a>
   </div>
 </header>

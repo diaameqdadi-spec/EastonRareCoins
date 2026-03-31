@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import LocationMap from "../components/LocationMap.astro";
 import {
-  business,
   coverageAreas,
   ownerBio,
   purchaseCategories,
@@ -69,22 +68,47 @@ import {
 
   <section id="buying" class="section section-band section-band-light">
     <div class="container">
-      <div class="section-split">
+      <div class="section-heading buying-heading">
         <div class="section-heading compact">
           <p class="eyebrow">Buying</p>
           <h2>What the business buys.</h2>
-          <p class="section-intro">Bring in individual pieces or full collections for review.</p>
+          <p class="section-intro">
+            Select a category to see what is reviewed and the types of items commonly brought in.
+          </p>
         </div>
-        <img class="section-image" src="/site-assets/original/coins-closeup.jpg" alt="Rare coins and coin collections" />
       </div>
-
-      <div class="service-grid">
-        {purchaseCategories.map((item, index) => (
-          <article class={`feature-card service-card tone-${(index % 5) + 1}`}>
-            <h3>{item.split(":")[0]}</h3>
-            <p>{item.split(":").slice(1).join(":").trim()}</p>
-          </article>
-        ))}
+      <div class="buying-picker" data-buying-picker>
+        <div class="buying-list" role="tablist" aria-label="Items Easton Rare Coin buys">
+          {purchaseCategories.map((item, index) => (
+            <button
+              type="button"
+              class:list={{ "buying-tab": true, "is-active": index === 0 }}
+              data-buying-tab
+              data-target={item.slug}
+              role="tab"
+              aria-selected={index === 0 ? "true" : "false"}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div class="buying-display">
+          {purchaseCategories.map((item, index) => (
+            <article
+              class:list={{ "buying-panel": true, "is-active": index === 0 }}
+              data-buying-panel
+              data-panel={item.slug}
+              role="tabpanel"
+              aria-hidden={index === 0 ? "false" : "true"}
+            >
+              <img class="buying-image" src={item.image} alt={item.alt} />
+              <div class="buying-copy">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -101,16 +125,6 @@ import {
               <p>{item}</p>
             </div>
           ))}
-        </div>
-      </div>
-      <div class="contact-panel muted coverage-panel">
-        <p class="eyebrow">Contact</p>
-        <h2>{business.phoneDisplay}</h2>
-        <p>{business.addressFull}</p>
-        <p>{business.hours}</p>
-        <div class="hero-actions">
-          <a class="button" href={business.phoneHref}>Call Now</a>
-          <a class="button button-ghost" href={business.emailHref}>Email</a>
         </div>
       </div>
       <LocationMap />
@@ -140,18 +154,20 @@ import {
   </section>
 
   <section class="section section-band section-band-warm">
-    <div class="container section-split">
-      <div class="section-heading compact">
+    <div class="container">
+      <div class="section-heading">
         <p class="eyebrow">Local Ownership</p>
         <h2>Local ownership with years of experience in coins and precious metals.</h2>
         <p class="section-intro">Work directly with a local buyer who understands collections, bullion, jewelry, and watches.</p>
       </div>
       <div class="owner-story">
-        <img
-          class="owner-photo"
-          src="/site-assets/original/about-owner.jpg"
-          alt="Owner portrait"
-        />
+        <div class="owner-photo-frame">
+          <img
+            class="owner-photo"
+            src="/site-assets/original/about-owner.jpg"
+            alt="Owner portrait"
+          />
+        </div>
         <div class="stack prose-card owner-copy">
           {ownerBio.slice(0, 2).map((paragraph) => (
             <p>{paragraph}</p>
@@ -162,3 +178,32 @@ import {
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const picker = document.querySelector("[data-buying-picker]");
+  if (picker) {
+    const tabs = Array.from(picker.querySelectorAll("[data-buying-tab]"));
+    const panels = Array.from(picker.querySelectorAll("[data-buying-panel]"));
+
+    const setActive = (target) => {
+      tabs.forEach((tab) => {
+        const isActive = tab.getAttribute("data-target") === target;
+        tab.classList.toggle("is-active", isActive);
+        tab.setAttribute("aria-selected", String(isActive));
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.getAttribute("data-panel") === target;
+        panel.classList.toggle("is-active", isActive);
+        panel.setAttribute("aria-hidden", String(!isActive));
+      });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.getAttribute("data-target");
+        if (target) setActive(target);
+      });
+    });
+  }
+</script>
