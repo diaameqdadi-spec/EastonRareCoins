@@ -1,10 +1,26 @@
 {
   "ok": true,
-  "updatedAt": "",
+  "updatedAt": "2026-03-31T19:02:48.236Z",
   "prices": [
-    { "label": "Gold", "price": null, "changePct": null },
-    { "label": "Silver", "price": null, "changePct": null },
-    { "label": "Platinum", "price": null, "changePct": null },
-    { "label": "Copper", "price": null, "changePct": null }
+    {
+      "label": "Gold",
+      "price": 4671.885,
+      "changePct": null
+    },
+    {
+      "label": "Silver",
+      "price": 75.0635,
+      "changePct": null
+    },
+    {
+      "label": "Platinum",
+      "price": 1967.385,
+      "changePct": null
+    },
+    {
+      "label": "Copper",
+      "price": 0.3877,
+      "changePct": null
+    }
   ]
 }
