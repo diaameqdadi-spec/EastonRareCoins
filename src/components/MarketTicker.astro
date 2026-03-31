@@ -2,15 +2,15 @@
 const fallbackPrices = [
   { label: "Gold", value: "Loading..." },
   { label: "Silver", value: "Loading..." },
-  { label: "Platinum", value: "Loading..." }
+  { label: "Platinum", value: "Loading..." },
+  { label: "Copper", value: "Loading..." }
 ];
 ---
 
 <div
   class="market-ticker"
   data-market-ticker
-  data-api-url="https://www.goldapi.io/api"
-  data-api-key={import.meta.env.PUBLIC_GOLDAPI_KEY ?? "goldapi-14r6r2smnes34dp-io"}
+  data-api-url="/api/metals.json"
 >
   <div class="market-track">
     {fallbackPrices.map((item) => (
@@ -23,11 +23,10 @@ const fallbackPrices = [
 </div>
 
 <script>
-  const root = document.querySelector("[data-market-ticker]");
-  if (root) {
-    const apiUrl = root.getAttribute("data-api-url");
-    const apiKey = root.getAttribute("data-api-key");
-    const track = root.querySelector(".market-track");
+    const root = document.querySelector("[data-market-ticker]");
+    if (root) {
+      const apiUrl = root.getAttribute("data-api-url");
+      const track = root.querySelector(".market-track");
 
     const renderFallback = (message) => {
       if (!track) return;
@@ -35,40 +34,26 @@ const fallbackPrices = [
         <div class="market-item"><span>Gold</span><strong>${message}</strong></div>
         <div class="market-item"><span>Silver</span><strong>${message}</strong></div>
         <div class="market-item"><span>Platinum</span><strong>${message}</strong></div>
+        <div class="market-item"><span>Copper</span><strong>${message}</strong></div>
       `;
     };
 
-    if (!apiKey || !apiUrl || !track) {
+    if (!apiUrl || !track) {
       renderFallback("Unavailable");
     } else {
-      const symbols = [
-        ["Gold", "XAU"],
-        ["Silver", "XAG"],
-        ["Platinum", "XPT"]
-      ];
-
-      Promise.all(
-        symbols.map(([label, symbol]) =>
-          fetch(`${apiUrl}/${encodeURIComponent(symbol)}/USD`, {
-            headers: {
-              "x-access-token": apiKey,
-              Accept: "application/json"
-            }
-          })
-            .then(async (response) => {
-              const data = await response.json();
-              if (!response.ok || data?.error) {
-                throw new Error(data?.error || "Ticker request failed");
-              }
-              return { label, value: data?.price, changePct: data?.chp };
-            })
-        )
-      )
+      fetch(apiUrl)
+        .then(async (response) => {
+          const data = await response.json();
+          if (!response.ok || !data?.ok || !Array.isArray(data?.prices)) {
+            throw new Error(data?.message || "Ticker request failed");
+          }
+          return data.prices;
+        })
         .then((prices) => {
           track.innerHTML = prices
-            .map(({ label, value, changePct }) => {
+            .map(({ label, price, changePct }) => {
               const formatted =
-                typeof value === "number" && value > 0
+                typeof price === "number" && price > 0
                   ? new Intl.NumberFormat("en-US", {
                       style: "currency",
                       currency: "USD",
@@ -83,7 +68,10 @@ const fallbackPrices = [
             })
             .join("");
         })
-        .catch(() => renderFallback("Live prices unavailable"));
+        .catch((error) => {
+          const message = error instanceof Error ? error.message : "Live prices unavailable";
+          renderFallback(message);
+        });
     }
   }
 </script>
