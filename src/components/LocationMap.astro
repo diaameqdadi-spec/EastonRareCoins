@@ -1,0 +1,20 @@
+---
+import { business } from "../data/site";
+
+const googleKey = import.meta.env.PUBLIC_GOOGLE_MAPS_EMBED_API_KEY;
+const query = encodeURIComponent(business.mapQuery);
+const src = googleKey
+  ? `https://www.google.com/maps/embed/v1/place?key=${googleKey}&q=${query}`
+  : `https://www.google.com/maps?q=${query}&z=15&output=embed`;
+---
+
+<div class="map-card">
+  <iframe
+    class="location-map"
+    title="Easton Rare Coin & Precious Metals location map"
+    src={src}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+  ></iframe>
+</div>

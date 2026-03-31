@@ -1,0 +1,89 @@
+---
+const fallbackPrices = [
+  { label: "Gold", value: "Loading..." },
+  { label: "Silver", value: "Loading..." },
+  { label: "Platinum", value: "Loading..." }
+];
+---
+
+<div
+  class="market-ticker"
+  data-market-ticker
+  data-api-url="https://www.goldapi.io/api"
+  data-api-key={import.meta.env.PUBLIC_GOLDAPI_KEY ?? "goldapi-14r6r2smnes34dp-io"}
+>
+  <div class="market-track">
+    {fallbackPrices.map((item) => (
+      <div class="market-item">
+        <span>{item.label}</span>
+        <strong>{item.value}</strong>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector("[data-market-ticker]");
+  if (root) {
+    const apiUrl = root.getAttribute("data-api-url");
+    const apiKey = root.getAttribute("data-api-key");
+    const track = root.querySelector(".market-track");
+
+    const renderFallback = (message) => {
+      if (!track) return;
+      track.innerHTML = `
+        <div class="market-item"><span>Gold</span><strong>${message}</strong></div>
+        <div class="market-item"><span>Silver</span><strong>${message}</strong></div>
+        <div class="market-item"><span>Platinum</span><strong>${message}</strong></div>
+      `;
+    };
+
+    if (!apiKey || !apiUrl || !track) {
+      renderFallback("Unavailable");
+    } else {
+      const symbols = [
+        ["Gold", "XAU"],
+        ["Silver", "XAG"],
+        ["Platinum", "XPT"]
+      ];
+
+      Promise.all(
+        symbols.map(([label, symbol]) =>
+          fetch(`${apiUrl}/${encodeURIComponent(symbol)}/USD`, {
+            headers: {
+              "x-access-token": apiKey,
+              Accept: "application/json"
+            }
+          })
+            .then(async (response) => {
+              const data = await response.json();
+              if (!response.ok || data?.error) {
+                throw new Error(data?.error || "Ticker request failed");
+              }
+              return { label, value: data?.price, changePct: data?.chp };
+            })
+        )
+      )
+        .then((prices) => {
+          track.innerHTML = prices
+            .map(({ label, value, changePct }) => {
+              const formatted =
+                typeof value === "number" && value > 0
+                  ? new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                      maximumFractionDigits: 2
+                    }).format(value)
+                  : "Unavailable";
+              const delta =
+                typeof changePct === "number"
+                  ? `<em class="${changePct >= 0 ? "is-up" : "is-down"}">${changePct >= 0 ? "+" : ""}${changePct.toFixed(2)}%</em>`
+                  : "";
+              return `<div class="market-item"><span>${label}</span><strong>${formatted}/oz</strong>${delta}</div>`;
+            })
+            .join("");
+        })
+        .catch(() => renderFallback("Live prices unavailable"));
+    }
+  }
+</script>

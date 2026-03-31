@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { business, locationPages } from "../../data/site";
+
+export function getStaticPaths() {
+  return locationPages.map((page) => ({
+    params: { slug: page.slug },
+    props: page
+  }));
+}
+
+const page = Astro.props;
+---
+
+<BaseLayout
+  title={`${page.title} | Easton Rare Coin & Precious Metals`}
+  description={`${page.title} service page for Easton Rare Coin & Precious Metals with local selling information, process details, and contact options.`}
+>
+  <section class="page-hero container narrow">
+    <p class="eyebrow">{page.eyebrow}</p>
+    <h1>{page.title}</h1>
+    <p class="lede">{page.intro}</p>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div class="prose-card">
+        <h2>Selling gold here should feel straightforward.</h2>
+        <p>
+          The original location pages all communicate the same essential value: bring in
+          your items, receive a clear evaluation, and decide whether to accept a cash
+          offer. This Astro version keeps that intent while avoiding repetitive template
+          clutter.
+        </p>
+      </div>
+      <div class="stack">
+        <div class="bullet-card">
+          <p>Jewelry is sorted by karat before pricing.</p>
+        </div>
+        <div class="bullet-card">
+          <p>Items are weighed and explained clearly before an offer is made.</p>
+        </div>
+        <div class="bullet-card">
+          <p>No obligation to sell and no charge for in-store appraisals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt-section">
+    <div class="container split-highlight">
+      <div class="contact-panel">
+        <p class="eyebrow">Why locals choose the shop</p>
+        <h2>Secure setting, strong payouts, and a simple process.</h2>
+        <p>
+          Clients are looking for professionalism and clarity as much as price. The new
+          design makes those points visible immediately.
+        </p>
+      </div>
+      <div class="contact-panel muted">
+        <p><a href={business.phoneHref}>{business.phoneDisplay}</a></p>
+        <p><a href={business.emailHref}>{business.email}</a></p>
+        <p>{business.addressFull}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

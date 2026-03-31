@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { business } from "../data/site";
+---
+
+<BaseLayout
+  title="Contact | Easton Rare Coin & Precious Metals"
+  description="Contact Easton Rare Coin & Precious Metals in Easton, PA for appraisals, appointments, and questions about coins, jewelry, bullion, paper money, and watches."
+>
+  <section class="page-hero container narrow">
+    <p class="eyebrow">Contact</p>
+    <h1>Reach the shop by phone, email, or an appointment request.</h1>
+    <p class="lede">
+      The original site offered phone, email, and web contact. This version keeps that
+      information but turns it into a cleaner, more practical contact page.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container split-highlight">
+      <div class="contact-panel">
+        <p class="eyebrow">Direct contact</p>
+        <h2>{business.phoneDisplay}</h2>
+        <p>{business.hours}</p>
+        <p><a href={business.phoneHref}>Call or text</a></p>
+        <p><a href={business.emailHref}>{business.email}</a></p>
+        <p>{business.addressFull}</p>
+      </div>
+      <div class="contact-panel muted">
+        <p class="eyebrow">Visit the office</p>
+        <h3>{business.addressLine1}</h3>
+        <p>{business.addressLine2}</p>
+        <p>Lower level office setting with off-street parking and private evaluations.</p>
+        <p>
+          <a
+            href={`https://maps.google.com/?q=${encodeURIComponent(business.mapQuery)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open in Google Maps
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt-section">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Appointment request</p>
+        <h2>A simple form placeholder for the new build.</h2>
+        <p>
+          This Astro rebuild is static by default. The form below uses a mail client
+          fallback so the layout is preserved without inventing a backend that was not in
+          the workspace.
+        </p>
+      </div>
+      <form
+        class="contact-form"
+        action="mailto:eastonrarecoin@gmail.com"
+        method="post"
+        encType="text/plain"
+      >
+        <label>
+          First name
+          <input type="text" name="firstName" required />
+        </label>
+        <label>
+          Last name
+          <input type="text" name="lastName" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Phone number
+          <input type="tel" name="phone" />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button class="button" type="submit">Send request</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { business, ownerBio, serviceHighlights } from "../data/site";
+---
+
+<BaseLayout
+  title="About | Easton Rare Coin & Precious Metals"
+  description="Learn about Easton Rare Coin & Precious Metals, a family-owned Easton business with experience in coins, precious metals, jewelry, paper currency, and watches."
+>
+  <section class="page-hero container narrow">
+    <p class="eyebrow">About the business</p>
+    <h1>Family-owned expertise with over 20 years of experience behind the counter.</h1>
+    <p class="lede">
+      Easton Rare Coin & Precious Metals is a licensed dealer in Easton, Pennsylvania
+      specializing in coin collections, gold jewelry, precious metals, paper currency,
+      watches, and more.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <div class="prose-card">
+        <h2>What the original site says, presented more clearly.</h2>
+        <p>
+          The current site communicates several strong business points: free estimates,
+          seven-day availability, house calls for larger collections, and a focus on high
+          payouts with personalized service. Those ideas are preserved here and given more
+          room to read like a reputable local business instead of marketing filler.
+        </p>
+      </div>
+      <div class="stack">
+        {serviceHighlights.map((item) => (
+          <div class="bullet-card">
+            <p>{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt-section">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">About the owner</p>
+        <h2>Shane O'Connor, MBA</h2>
+      </div>
+      <div class="stack prose-card">
+        {ownerBio.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split-highlight">
+      <div class="contact-panel">
+        <p class="eyebrow">Talk directly</p>
+        <h2>Questions about a collection or estate?</h2>
+        <p>Call to describe what you have, schedule a visit, or ask about a house call.</p>
+      </div>
+      <div class="contact-panel muted">
+        <h3>{business.phoneDisplay}</h3>
+        <p><a href={business.phoneHref}>Call now</a></p>
+        <p><a href={business.emailHref}>{business.email}</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

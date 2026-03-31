@@ -1,0 +1,49 @@
+---
+import { business, coverageAreas } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="eyebrow">Easton Rare Coin & Precious Metals</p>
+      <img
+        class="footer-logo"
+        src="/site-assets/original/logo-secondary.png"
+        alt="Easton Rare Coin & Precious Metals seal"
+      />
+      <h2>Professional appraisals with a local reputation to protect.</h2>
+      <p>
+        Serving Easton, Bethlehem, Allentown, the Lehigh Valley, and nearby New Jersey
+        counties with honest evaluations and same-day cash offers.
+      </p>
+    </div>
+    <div>
+      <p class="footer-title">Visit</p>
+      <p>{business.addressLine1}</p>
+      <p>{business.addressLine2}</p>
+      <p>{business.hours}</p>
+    </div>
+    <div>
+      <p class="footer-title">Contact</p>
+      <p><a href={business.phoneHref}>{business.phoneDisplay}</a></p>
+      <p><a href={business.emailHref}>{business.email}</a></p>
+      <p>
+        <a
+          href={`https://maps.google.com/?q=${encodeURIComponent(business.mapQuery)}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open directions
+        </a>
+      </p>
+    </div>
+    <div>
+      <p class="footer-title">Coverage</p>
+      <p>PA: {coverageAreas.pennsylvania.slice(0, 4).join(", ")}</p>
+      <p>NJ: {coverageAreas.newJersey.slice(0, 3).join(", ")}</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; {new Date().getFullYear()} {business.name}. All rights reserved.</p>
+  </div>
+</footer>

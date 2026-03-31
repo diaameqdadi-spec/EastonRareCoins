@@ -1,0 +1,47 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  text: string;
+}
+
+const { eyebrow, title, text } = Astro.props;
+---
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{title}</h1>
+      <p class="lede">{text}</p>
+      <div class="hero-highlights">
+        <div class="hero-highlight">
+          <span>Office</span>
+          <strong>Private Easton location</strong>
+        </div>
+        <div class="hero-highlight">
+          <span>Availability</span>
+          <strong>Open 7 days a week</strong>
+        </div>
+        <div class="hero-highlight">
+          <span>Specialties</span>
+          <strong>Coins, jewelry, bullion, watches</strong>
+        </div>
+      </div>
+      <div class="hero-actions hero-actions-compact">
+        <a class="button button-callout" href="tel:+14849039957">
+          <span class="callout-kicker">Call now</span>
+          <strong>(484) 903-9957</strong>
+        </a>
+        <a class="button button-ghost" href="/#selling">How it works</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img
+        class="hero-media-main"
+        src="/site-assets/original/hero-gold-bars.jpg"
+        alt="Gold bars and coins"
+      />
+    </div>
+  </div>
+</section>

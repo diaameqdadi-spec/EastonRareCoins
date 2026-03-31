@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import LocationMap from "../components/LocationMap.astro";
+import {
+  business,
+  coverageAreas,
+  ownerBio,
+  purchaseCategories,
+  serviceHighlights,
+  locationPages
+} from "../data/site";
+---
+
+<BaseLayout
+  title="Easton Rare Coin & Precious Metals | Coins, Gold, Jewelry & Bullion"
+  description="Sell gold, jewelry, coins, bullion, watches, and paper money with Easton Rare Coin & Precious Metals in Easton, Pennsylvania."
+>
+  <div id="top">
+    <Hero
+      eyebrow="Easton, Pennsylvania"
+      title="Sell coins, jewelry, bullion, and watches for cash."
+      text="Simple evaluations, clear offers, and a private local office for coins, jewelry, bullion, watches, and paper money."
+    />
+  </div>
+
+  <section id="selling" class="section section-band section-band-warm">
+    <div class="container">
+      <div class="section-split">
+        <div class="section-heading compact">
+          <p class="eyebrow">Selling</p>
+          <h2>How selling works.</h2>
+          <p class="section-intro">
+            Call ahead or walk in, bring your items, review the offer, and decide if you want to
+            sell. That is the process.
+          </p>
+        </div>
+        <div class="simple-feature">
+          <img src="/site-assets/original/jewelry-rings.jpg" alt="Gold jewelry and rings" />
+          <div class="simple-feature-copy">
+            <h3>Private, straightforward, no pressure.</h3>
+            <p>
+              Jewelry, coins, paper money, watches, and estate pieces can all be evaluated in one
+              visit.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-grid">
+        <article class="process-card">
+          <span class="process-number">01</span>
+          <h2>Reach out</h2>
+          <p>Call or text to ask questions, describe what you have, or plan your visit.</p>
+        </article>
+        <article class="process-card">
+          <span class="process-number">02</span>
+          <h2>Bring it in</h2>
+          <p>Meet in a comfortable private office. House calls are available for larger collections.</p>
+        </article>
+        <article class="process-card">
+          <span class="process-number">03</span>
+          <h2>Get an offer</h2>
+          <p>Items are reviewed clearly. There is no charge for in-store appraisals and no obligation to sell.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="buying" class="section section-band section-band-light">
+    <div class="container">
+      <div class="section-split">
+        <div class="section-heading compact">
+          <p class="eyebrow">Buying</p>
+          <h2>What the business buys.</h2>
+          <p class="section-intro">Bring in individual pieces or full collections for review.</p>
+        </div>
+        <img class="section-image" src="/site-assets/original/coins-closeup.jpg" alt="Rare coins and coin collections" />
+      </div>
+
+      <div class="service-grid">
+        {purchaseCategories.map((item, index) => (
+          <article class={`feature-card service-card tone-${(index % 5) + 1}`}>
+            <h3>{item.split(":")[0]}</h3>
+            <p>{item.split(":").slice(1).join(":").trim()}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band section-band-warm-soft">
+    <div class="container contact-layout">
+      <div class="contact-panel contact-panel-primary">
+        <p class="eyebrow">Why Call</p>
+        <h2>Strong payouts matter, but so does the setting.</h2>
+        <div class="trust-list">
+          {serviceHighlights.map((item) => (
+            <div class="trust-row">
+              <span class="check-mark">+</span>
+              <p>{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="contact-panel muted coverage-panel">
+        <p class="eyebrow">Contact</p>
+        <h2>{business.phoneDisplay}</h2>
+        <p>{business.addressFull}</p>
+        <p>{business.hours}</p>
+        <div class="hero-actions">
+          <a class="button" href={business.phoneHref}>Call Now</a>
+          <a class="button button-ghost" href={business.emailHref}>Email</a>
+        </div>
+      </div>
+      <LocationMap />
+    </div>
+  </section>
+
+  <section class="section section-band section-band-light">
+    <div class="container">
+      <div class="section-heading compact">
+        <p class="eyebrow">Areas Served</p>
+        <h2>Serving Easton, the Lehigh Valley, and nearby New Jersey.</h2>
+        <p class="section-intro">Local buyers pages are available for nearby cities and service areas.</p>
+      </div>
+      <div class="location-grid">
+        {locationPages.map((page, index) => (
+          <a class={`feature-card feature-link location-card tone-${((index + 1) % 5) + 1}`} href={`/gold-buyers/${page.slug}`}>
+            <h3>{page.title}</h3>
+            <p>{page.intro}</p>
+          </a>
+        ))}
+      </div>
+      <div class="coverage-summary">
+        <p><strong>Pennsylvania:</strong> {coverageAreas.pennsylvania.join(", ")}</p>
+        <p><strong>New Jersey:</strong> {coverageAreas.newJersey.join(", ")}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band section-band-warm">
+    <div class="container section-split">
+      <div class="section-heading compact">
+        <p class="eyebrow">Local Ownership</p>
+        <h2>Local ownership with years of experience in coins and precious metals.</h2>
+        <p class="section-intro">Work directly with a local buyer who understands collections, bullion, jewelry, and watches.</p>
+      </div>
+      <div class="owner-story">
+        <img
+          class="owner-photo"
+          src="/site-assets/original/about-owner.jpg"
+          alt="Owner portrait"
+        />
+        <div class="stack prose-card owner-copy">
+          {ownerBio.slice(0, 2).map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          <p><a href="/about">Read more about the business</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

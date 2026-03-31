@@ -1,0 +1,56 @@
+---
+import { business } from "../data/site";
+import { locationPages } from "../data/site";
+import MarketTicker from "./MarketTicker.astro";
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/#selling", label: "Selling" },
+  { href: "/#buying", label: "Buying" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" }
+];
+---
+
+<header class="site-header">
+  <MarketTicker />
+  <div class="container container-wide topbar">
+    <p>{business.hours}</p>
+    <div class="topbar-links">
+      <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">
+        <img src="/site-assets/original/facebook.png" alt="" />
+      </a>
+      <a href="https://www.instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+        <img src="/site-assets/original/instagram.png" alt="" />
+      </a>
+    </div>
+  </div>
+  <div class="container container-wide nav-wrap">
+    <a class="brand" href="/">
+      <img
+        class="brand-logo"
+        src="/site-assets/original/logo-main.png"
+        alt={business.name}
+      />
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      {links.map((link) => (
+        <a href={link.href} class:list={{ active: link.href === "/" && Astro.url.pathname === "/" }}>
+          {link.label}
+        </a>
+      ))}
+      <details class="nav-dropdown">
+        <summary>Gold Buyers</summary>
+        <div class="nav-dropdown-menu">
+          {locationPages.map((page) => (
+            <a href={`/gold-buyers/${page.slug}`}>{page.title}</a>
+          ))}
+        </div>
+      </details>
+    </nav>
+    <a class="button button-call" href={business.phoneHref}>
+      <span>Call For Cash Offer</span>
+      <strong>{business.phoneDisplay}</strong>
+    </a>
+  </div>
+</header>

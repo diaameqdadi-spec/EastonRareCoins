@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { howToSellSteps, business } from "../data/site";
+---
+
+<BaseLayout
+  title="How to Sell | Easton Rare Coin & Precious Metals"
+  description="Learn the three-step selling process at Easton Rare Coin & Precious Metals, including appointments, in-shop evaluations, and house calls for larger collections."
+>
+  <section class="page-hero container narrow">
+    <p class="eyebrow">How to sell</p>
+    <h1>As easy as one, two, three.</h1>
+    <p class="lede">
+      The live site already has a three-step process. This version turns it into a proper
+      process page with stronger pacing and less clutter.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container process-grid">
+      {howToSellSteps.map((step, index) => (
+        <article class="process-card">
+          <span class="process-number">0{index + 1}</span>
+          <h2>{step.title}</h2>
+          <p>{step.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section alt-section">
+    <div class="container split-highlight">
+      <div class="contact-panel">
+        <p class="eyebrow">House calls</p>
+        <h2>Collections too large to carry in can still be evaluated.</h2>
+        <p>
+          The original site mentions house calls. That is worth elevating because it is a
+          real differentiator for estates and larger holdings.
+        </p>
+      </div>
+      <div class="contact-panel muted">
+        <h3>Start with a call or text</h3>
+        <p><a href={business.phoneHref}>{business.phoneDisplay}</a></p>
+        <p><a href={business.emailHref}>{business.email}</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
