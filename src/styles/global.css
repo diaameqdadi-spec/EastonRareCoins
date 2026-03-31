@@ -55,7 +55,6 @@ a {
   width: min(820px, calc(100% - 2rem));
 }
 
-.topbar,
 .nav-wrap,
 .market-track,
 .hero-grid,
@@ -67,14 +66,6 @@ a {
 .card-grid,
 .check-grid {
   display: grid;
-}
-
-.topbar {
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
-  padding: 0.8rem 0;
-  color: var(--muted);
-  font-size: 0.92rem;
 }
 
 .market-ticker {
@@ -125,13 +116,13 @@ a {
   color: #f0a0a0;
 }
 
-.topbar-links {
+.header-socials {
   display: flex;
   align-items: center;
   gap: 0.9rem;
 }
 
-.topbar-links img {
+.header-socials img {
   width: 1.35rem;
   height: 1.35rem;
   display: block;
@@ -147,10 +138,10 @@ a {
 }
 
 .nav-wrap {
-  grid-template-columns: auto 1fr auto;
-  gap: 2.5rem;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 1.5rem;
   align-items: center;
-  padding: 1.15rem 0 1.3rem;
+  padding: 0.95rem 0 1rem;
 }
 
 .brand {
@@ -879,14 +870,6 @@ h3 {
 @media (max-width: 720px) {
   .site-header {
     position: static;
-  }
-
-  .topbar {
-    grid-template-columns: 1fr;
-  }
-
-  .topbar-links {
-    flex-wrap: wrap;
   }
 
   .nav-wrap {
