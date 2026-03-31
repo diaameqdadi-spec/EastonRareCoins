@@ -13,18 +13,17 @@ const __dirname = path.dirname(__filename);
 const outputPath = path.resolve(__dirname, "../public/data/metals.json");
 
 const endpoint =
-  "https://api.metals.dev/v1/latest?currency=USD&unit=toz&symbols=gold,silver,platinum,copper";
+  `https://api.metals.dev/v1/latest?api_key=${encodeURIComponent(apiKey)}&currency=USD&unit=toz`;
 
 const response = await fetch(endpoint, {
   headers: {
-    Authorization: `Bearer ${apiKey}`,
     Accept: "application/json"
   }
 });
 
 const data = await response.json().catch(() => ({}));
 
-if (!response.ok) {
+if (!response.ok || data?.status === "error") {
   throw new Error(data?.error || data?.message || "Failed to fetch metals.dev data");
 }
 
