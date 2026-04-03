@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updatedAt": "2026-04-02T22:03:58.353Z",
+  "updatedAt": "2026-04-03T15:05:25.868Z",
   "prices": [
     {
       "label": "Gold",
@@ -14,7 +14,7 @@
     },
     {
       "label": "Platinum",
-      "price": 1994.5,
+      "price": 1978,
       "changePct": null
     },
     {
