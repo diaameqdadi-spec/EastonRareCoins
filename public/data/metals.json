@@ -1,10 +1,10 @@
 {
   "ok": true,
-  "updatedAt": "2026-04-10T21:00:34.380Z",
+  "updatedAt": "2026-04-11T13:35:39.230Z",
   "prices": [
     {
       "label": "Gold",
-      "price": 4749.46,
+      "price": 4749.445,
       "changePct": null
     },
     {
