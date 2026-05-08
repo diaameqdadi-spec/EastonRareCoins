@@ -1,25 +1,25 @@
 {
   "ok": true,
-  "updatedAt": "2026-05-07T21:29:00.555Z",
+  "updatedAt": "2026-05-08T14:22:33.171Z",
   "prices": [
     {
       "label": "Gold",
-      "price": 4685.775,
+      "price": 4725.215,
       "changePct": null
     },
     {
       "label": "Silver",
-      "price": 78.4415,
+      "price": 80.745,
       "changePct": null
     },
     {
       "label": "Platinum",
-      "price": 2024.3,
+      "price": 2026.9,
       "changePct": null
     },
     {
       "label": "Copper",
-      "price": 0.4206,
+      "price": 0.4325,
       "changePct": null
     }
   ]
